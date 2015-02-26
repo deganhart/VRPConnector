@@ -3,11 +3,11 @@
 <div class="container" id="vrpcontainer">
     <div class="row">
         <div class="col-md-2">
-            <img src="<?= $data->photos[0]->thumb_url ?>" style="width:100%">
+            <img src="<?php echo  $data->photos[0]->thumb_url ?>" style="width:100%">
         </div>
         <div class="col-md-8">
             <div class="row">
-                <?= $data->Bedrooms; ?> Bedroom(s) | <?= $data->Bathrooms; ?> Bathroom(s) | Sleeps <?= $data->Sleeps; ?>
+                <?php echo  $data->Bedrooms; ?> Bedroom(s) | <?php echo  $data->Bathrooms; ?> Bathroom(s) | Sleeps <?php echo  $data->Sleeps; ?>
             </div>
             <div class="row">
                 <!-- Photo Gallery -->
@@ -18,7 +18,7 @@
                         $style = "";
                         if($count > 0) { $style = "display:none;"; }
                         ?>
-                        <img id="full<?=$v->id?>" alt="<?= strip_tags($v->caption); ?>" src="<?= $v->url; ?>" style="width:100%; <?=$style?>"/>
+                        <img id="full<?php echo $v->id; ?>" alt="<?php echo  strip_tags($v->caption); ?>" src="<?php echo  $v->url; ?>" style="width:100%; <?php echo $style; ?>"/>
                         <?php
                         $count++;
                     }
@@ -29,7 +29,7 @@
                     <?php
                     foreach ($data->photos as $k => $v) {
                         ?>
-                        <img class="thumb" id="<?=$v->id?>" alt="<?= strip_tags($v->caption); ?>" src="<?= $v->url; ?>" style="width:90px; float:left; margin: 3px;"/>
+                        <img class="thumb" id="<?php echo $v->id; ?>" alt="<?php echo  strip_tags($v->caption); ?>" src="<?php echo  $v->url; ?>" style="width:90px; float:left; margin: 3px;"/>
                     <?php
                     }
                     ?>
@@ -91,8 +91,8 @@
                     </tr>
                     <?php foreach ($data->attributes as $amen) { ?>
                         <tr>
-                            <?php if(false) { ?> <td class="first"><b><?= $amen->name; ?></b>:</td> <?php } ?>
-                            <td> <?= $amen->value; ?></td>
+                            <?php if(false) { ?> <td class="first"><b><?php echo  $amen->name; ?></b>:</td> <?php } ?>
+                            <td> <?php echo  $amen->value; ?></td>
                         </tr>
                     <?php } ?>
                 </table>
@@ -108,11 +108,11 @@
                         <?php foreach ($data->reviews as $review): ?>
 
                             <tr>
-                                <td class="first" valign="top" align="center"><b><?= $review->name; ?></b></td>
-                                <td><h2 style="background:none;border:none;"><?= $review->title; ?></h2>
-                                    <small><?= $review->rating; ?> out of 5</small>
+                                <td class="first" valign="top" align="center"><b><?php echo  $review->name; ?></b></td>
+                                <td><h2 style="background:none;border:none;"><?php echo  $review->title; ?></h2>
+                                    <small><?php echo  $review->rating; ?> out of 5</small>
                                     <br><br>
-                                    <?= $review->review; ?>
+                                    <?php echo  $review->review; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?></table>
@@ -161,9 +161,9 @@
                             <?php foreach ($r as $k => $v) { ?>
                                 <tr>
                                     <td>
-                                        <?= $k; ?>
+                                        <?php echo  $k; ?>
                                     </td>
-                                    <td><?= $v->daily; ?>/nt</td>
+                                    <td><?php echo  $v->daily; ?>/nt</td>
 
                                 </tr>
                             <?php } ?>
@@ -187,7 +187,7 @@
 <script type="text/javascript">
     var geocoder;
     var map;
-    var query = "<?= $data->Address . " " . $data->Address2 . " " . $data->City . " " . $data->State . " " . $data->PostalCode; ?>";
+    var query = "<?php echo  $data->Address . " " . $data->Address2 . " " . $data->City . " " . $data->State . " " . $data->PostalCode; ?>";
     var image = '<?php bloginfo('template_directory'); ?>/images/mapicon.png';
 
     function initialize() {
@@ -195,7 +195,7 @@
         var myOptions = {
             zoom: 13,
             <?php if(strlen($data->lat) > 0 && strlen($data->long) > 0){ ?>
-            center: new google.maps.LatLng(<?= $data->lat; ?>, <?= $data->long; ?>),
+            center: new google.maps.LatLng(<?php echo  $data->lat; ?>, <?php echo  $data->long; ?>),
             <?php } ?>
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
@@ -214,7 +214,7 @@
                 var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location,
-                    title: "<?= $data->title; ?>",
+                    title: "<?php echo  $data->title; ?>"
                     //icon: image
                 });
             } else {

@@ -439,20 +439,20 @@ function vrpAvailableShort()  {
         <div id="datespicked">
             Select your arrival and departure dates below to reserve this unit.<br><br>
 
-            <form action="<?=site_url('','https')?>/vrp/book/step1/" method="get" id="bookingform">
+            <form action="<?php echo site_url('','https'); ?>/vrp/book/step1/" method="get" id="bookingform">
                     <ul>
                         <li class="input-group arrival">
                             <input placeholder="Arrival:"
                                     type="text" id="arrival2" name="obj[Arrival]"
                                    class="input unitsearch"
-                                   value="<?= $_SESSION['arrival']; ?>">
+                                   value="<?php echo  $_SESSION['arrival']; ?>">
                             <label for="arrival2" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
                         </li>
                         <li class="input-group depart">
                             <input placeholder="Departure:"
                                     type="text" id="depart2" name="obj[Departure]"
                                    class="input unitsearch"
-                                   value="<?= $_SESSION['depart']; ?>">
+                                   value="<?php echo  $_SESSION['depart']; ?>">
                             <label for="depart2" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
                         </li>
 
@@ -465,7 +465,7 @@ function vrpAvailableShort()  {
                         <div id="ratebreakdown"></div>
                      </li>
                     <li class="input-group">
-                        <input type="hidden" name="obj[PropID]" value="<?= $data->id; ?>">
+                        <input type="hidden" name="obj[PropID]" value="<?php echo $data->id; ?>">
                         <input type="button" value="Check Availability"
                                class="bookingbutton rounded"
                                id="checkbutton">

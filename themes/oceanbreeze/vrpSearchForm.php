@@ -86,13 +86,13 @@
         <ul>
             <!-- <label for="arrival">Check In:</label> -->
             <li class="input-group arrival">
-                <input placeholder="Arrival:" type="text" class="input form-control" name="search[arrival]" id="arrival" value="<?= $aplaceholder; ?>">
+                <input placeholder="Arrival:" type="text" class="input form-control" name="search[arrival]" id="arrival" value="<?php echo  $aplaceholder; ?>">
                 <label for="arrival" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
             </li>
 
             <!-- <label for="depart">Check Out:</label> -->
             <li class="input-group depart">
-                <input placeholder="Departure:" type="text" class="input form-control" name="search[departure]" id="depart" value="<?= $dplaceholder; ?>">
+                <input placeholder="Departure:" type="text" class="input form-control" name="search[departure]" id="depart" value="<?php echo  $dplaceholder; ?>">
                 <label for="depart" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
             </li>
             <li class="input-group type">
@@ -109,7 +109,7 @@
                             $sel = "";
                         }
                         ?>
-                        <option value="<?= $v; ?>" <?= $sel; ?>><?= $v; ?></option>
+                        <option value="<?php echo  $v; ?>" <?php echo  $sel; ?>><?php echo  $v; ?></option>
 
                     <?php } ?>
                 </select>
@@ -126,7 +126,7 @@
                         }
                         ?>
 
-                        <option value="<?= $v; ?>" <?= $sel; ?>><?= $v; ?></option>
+                        <option value="<?php echo  $v; ?>" <?php echo  $sel; ?>><?php echo  $v; ?></option>
 
                     <?php } ?>
 
@@ -146,7 +146,7 @@
                                 }
                                 ?>
 
-                                <option value="<?= $v; ?>" <?= $sel; ?>><?= $v; ?></option>
+                                <option value="<?php echo  $v; ?>" <?php echo  $sel; ?>><?php echo  $v; ?></option>
 
                             <?php } ?>
 
@@ -165,7 +165,7 @@
                                 }
                                 ?>
 
-                                <option value="<?= $v; ?>" <?= $sel; ?>><?= $v; ?></option>
+                                <option value="<?php echo  $v; ?>" <?php echo  $sel; ?>><?php echo  $v; ?></option>
 
                             <?php } ?>
 

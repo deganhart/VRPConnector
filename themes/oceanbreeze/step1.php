@@ -1,3 +1,12 @@
+<?php
+if(!isset($_GET[ 'obj' ][ 'Adults' ])) {
+    $_GET['obj']['Adults'] = 2;
+}
+
+if(!isset($_GET['obj']['Children'])) {
+    $_GET['obj']['Children'] = 0;
+}
+?>
 <div class="vrpgrid_12 userbox">
     <h3>Reservation Rental Agreement</h3>
 

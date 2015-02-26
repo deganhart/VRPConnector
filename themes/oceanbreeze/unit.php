@@ -15,6 +15,7 @@
                     <?php
                     $count = 0;
                     foreach ($data->photos as $k => $v) {
+                        $style = "";
                         if($count > 0) { $style = "display:none;"; }
                         ?>
                         <img id="full<?=$v->id?>" alt="<?= strip_tags($v->caption); ?>" src="<?= $v->url; ?>" style="width:100%; <?=$style?>"/>
@@ -54,6 +55,7 @@
                     <?php } ?>
                     <li><a href="#calendar">Check Availability</a></li>
                     <li><a href="#rates">Rates</a></li>
+                    <li><a href="#amenities">Amenities</a></li>
                     <?php // <li><a href="#gmap">Map</a></li> ?>
                 </ul>
 
@@ -77,24 +79,23 @@
                     <div id="description">
                         <p><?php echo nl2br($data->Description); ?></p>
                     </div>
-
-                    <div id="amenities">
-                        <table class="amenTable" cellspacing="0">
-                            <tr>
-                                <td colspan="2" class="heading"><h4>Amenities</h4></td>
-                            </tr>
-                            <?php foreach ($data->attributes as $amen) { ?>
-                                <tr>
-                                    <?php if(false) { ?> <td class="first"><b><?= $amen->name; ?></b>:</td> <?php } ?> 
-                                    <td> <?= $amen->value; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </div>
                 </div>
-
                 <div class="clearfix"></div>
+            </div>
 
+            <!-- AMENITIES TAB -->
+            <div id="amenities">
+                <table class="amenTable" cellspacing="0">
+                    <tr>
+                        <td colspan="2" class="heading"><h4>Amenities</h4></td>
+                    </tr>
+                    <?php foreach ($data->attributes as $amen) { ?>
+                        <tr>
+                            <?php if(false) { ?> <td class="first"><b><?= $amen->name; ?></b>:</td> <?php } ?>
+                            <td> <?= $amen->value; ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
             </div>
 
             <!-- REVIEWS TAB -->
@@ -135,11 +136,11 @@
                     <h4>Seasonal Rates</h4>
                     <div id="rates">
                         <?php
-                        $r = array();
+                        $r = [];
                         foreach ($data->rates as $v) {
                             $start = date("m/d/Y", strtotime($v->start_date));
                             $end = date("m/d/Y", strtotime($v->end_date));
-
+                            $r[$start . " - " . $end] = new \stdClass();
                             if ($v->chargebasis == 'Monthly') {
                                 $r[$start . " - " . $end]->monthly = "$" . $v->amount;
                             }
@@ -176,7 +177,6 @@
             <?php if (false) { ?>
                 <?php echo do_shortcode("[googlemap]"); ?>
             <?php } ?>
-            
 
         </div>
     </div>

@@ -9,3 +9,5 @@ error_log
 
 # Test results
 tests/report/
+
+.sass-cache

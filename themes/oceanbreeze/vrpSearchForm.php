@@ -1,4 +1,4 @@
-<div class="vrpsidebar">
+<div class="row">
     <div class="resultsfound">
         <h2>Search Our<br><span>Vacation Rentals</span></h2>
     </div>
@@ -178,23 +178,6 @@
                  <input id="submit" type="submit" name="propSearch" class="ButtonView rounded form-control" value="Search">
             </li>
         </ul>
-
-        
-
-
-
-
-        
-
-
-        
-
-
-        
-
-
-       
-
 
     </form>
 

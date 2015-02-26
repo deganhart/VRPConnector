@@ -415,8 +415,6 @@ function vrpCalendar($r, $totalMonths = 8) {
     return "" . $ret . $theKey;
 }
 
-
-
 // ENQUEUE GOOGLE MAPS
 function enqueue_google_maps() {
     wp_register_script('googlemaps', ('//maps.googleapis.com/maps/api/js?sensor=true'), false, null, false);
@@ -431,7 +429,7 @@ function googleMapShortcode()  {
 
 add_shortcode('googlemap','googleMapShortcode');
 
-function vrpAvailableShort()  {  
+function vrpAvailableShort($params)  {
     ob_start(); ?> 
     <div id="checkavailbox">
         <h2 class="bookheading">Book Your Stay!</h2><br>
@@ -445,14 +443,14 @@ function vrpAvailableShort()  {
                             <input placeholder="Arrival:"
                                     type="text" id="arrival2" name="obj[Arrival]"
                                    class="input unitsearch"
-                                   value="<?php echo  $_SESSION['arrival']; ?>">
+                                   value="<?php echo  (isset($_SESSION['arrival'])) ? $_SESSION['arrival'] : ""; ?>">
                             <label for="arrival2" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
                         </li>
                         <li class="input-group depart">
                             <input placeholder="Departure:"
                                     type="text" id="depart2" name="obj[Departure]"
                                    class="input unitsearch"
-                                   value="<?php echo  $_SESSION['depart']; ?>">
+                                   value="<?php echo  (isset($_SESSION['depart'])) ? $_SESSION['depart'] : ""; ?>">
                             <label for="depart2" class="input-group-addon"><i class="icon-calendar glyph"></i></label>
                         </li>
 
@@ -465,7 +463,7 @@ function vrpAvailableShort()  {
                         <div id="ratebreakdown"></div>
                      </li>
                     <li class="input-group">
-                        <input type="hidden" name="obj[PropID]" value="<?php echo $data->id; ?>">
+                        <input type="hidden" name="obj[PropID]" value="<?php echo $params['unit_id']; ?>">
                         <input type="button" value="Check Availability"
                                class="bookingbutton rounded"
                                id="checkbutton">

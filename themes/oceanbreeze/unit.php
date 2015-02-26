@@ -122,6 +122,9 @@
             <!-- CALENDAR TAB -->
             <div id="calendar">
                 <div class="row">
+                    <?php echo do_shortcode("[vrpAvailableShort unit_id=".$data->id."]"); ?>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div id="availability" style="">
                             <?php echo vrpCalendar($data->avail); ?>

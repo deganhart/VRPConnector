@@ -1,6 +1,9 @@
 <div class="container" id="vrpresults">
 
-    <?php //include "sidebar.php"; ?>
+    <?php
+    include __DIR__ . "/mapresults.php";
+//    echo "<pre>"; print_r($data); echo "</pre>";
+     ?>
 
     <?php if ($data->count == 0) { ?>
         <h2>No Results Found</h2>

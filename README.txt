@@ -16,7 +16,6 @@ allowing potential guests to search, sort, compare and book your rental properti
 
 = Example Sites =
 * http://www.grandcaymanvillas.net
-* http://www.breckenridgeloging.com
 * http://www.mauihawaiivacations.com
 * http://www.tellurideluxury.com
 

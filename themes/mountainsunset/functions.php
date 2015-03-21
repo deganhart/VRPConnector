@@ -67,21 +67,75 @@ class mountainsunset
     }
 }
 
-function vrp_pagination($totalpages, $page = 1)
+function setListOptions($options)
 {
-    $fields_string = "";
+
+    $configuredOptions = ['attr' => ''];
+
+    if(!empty($options['attr'])) {
+        $configuredOptions['attr'] = $options['attr'];
+    }
+
+    return (object) $configuredOptions;
+
+}
+
+function generateList($list, $options = [])
+{
+
+//    $list['Prev'] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
+        $options = setListOptions($options);
+
+        $recursive = function ($dataset, $child = FALSE, $options) use ( &$recursive ) {
+
+            $attr = 'class="pagination"';
+
+            $html = "<ul$options->attr"; // Open the menu container
+
+            foreach($dataset as $title => $properties) {
+
+                $subMenu = '';
+
+                $children = (!empty($properties->children) ? true : false);
+
+                if($children)
+                    $subMenu = $recursive($properties->children, TRUE, $options);
+
+                $html .= '<li>'
+                    . '<a href="?' . $properties->pageurl  . 'show=' . $properties->show . '&page=' . $properties->page . '">' . $title . '</a>'
+                    . $subMenu . '</li>';
+
+                unset($children, $subMenu);
+
+            }
+            return $html . "</ul>";
+        };
+
+    return $recursive($list, FALSE, $options);
+
+}
+
+function generateSearchQueryString() {
+
+    $fieldString = '';
+
     foreach ($_GET['search'] as $key => $value) {
         if (is_array($value)) {
             foreach ($value as $v):
-                $fields_string .= 'search[' . $key . '][]=' . $v . '&';
+                $fieldString .= 'search[' . $key . '][]=' . $v . '&';
             endforeach;
         } else {
-            $fields_string .= 'search[' . $key . ']=' . $value . '&';
+            $fieldString .= 'search[' . $key . ']=' . $value . '&';
         }
     }
-    rtrim($fields_string, '&');
-    $pageurl = $fields_string;
-    $_SESSION['pageurl'] = $pageurl;
+
+    return rtrim($fieldString, '&');
+}
+
+function vrp_pagination($totalpages, $page = 1)
+{
+
+    $_SESSION['pageurl'] = $pageurl = generateSearchQueryString();
 
     if (isset($_GET['show'])) {
         $show = $_GET['show'];
@@ -93,10 +147,11 @@ function vrp_pagination($totalpages, $page = 1)
         return;
     }
 
+    $list = [];
     echo "<ul>";
     if ($page > 1) {
         $p = $page - 1;
-        echo '<li><a href="?' . esc_attr($pageurl)  . 'show=' . esc_attr($show) . '&page=' . esc_attr($p) . '">Prev</a></li>';
+        $list['Prev'] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
     }
 
     if ($totalpages > 5) {
@@ -110,26 +165,28 @@ function vrp_pagination($totalpages, $page = 1)
         $startrange = 1;
     }
     if ($startrange > 1) {
-        echo '<li><a href="?' . esc_attr($pageurl) . 'show=' . esc_attr($show) . '&page=1">1</a></li>';
+        $list[1] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => 1];
 
     }
 
     foreach (range($startrange, $totalrange) as $p) {
+        $list[esc_attr($p)] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
         if ($page == $p) {
-            echo '<li class="active"><a href="?' . esc_attr($pageurl) . 'show=' . esc_attr($show) . '&page=' . esc_attr($p) . '">$p</a></li>';
+            $list[esc_attr($p)]['active'] = true;
         } else {
-            echo '<li><a href="?' . esc_attr($pageurl) . 'show=' . esc_attr($show) . '&page=' . esc_attr($p) . '">$p</a></li>';
+            $list[esc_attr($p)]['active'] = false;
         }
     }
     if ($totalpages > 5) {
-        echo '<li><a href="?' . esc_attr($pageurl) . 'show=' . esc_attr($show) . '&page=' . esc_attr($totalpages) . '">Last</a></li>';
+        $list[esc_attr($p)] = ['active' => false, 'pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
     }
 
     if ($page < $totalpages) {
         $p = $page + 1;
-        echo '<li><a href="?' . esc_attr($pageurl) . 'show=' . esc_attr($show) . '&page=' . esc_attr($p) . '">Next</a></li>';
+        $list['Next'] = ['active' => false, 'pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
     }
-    echo "</ul>";
+
+    echo generateList($list);
 }
 
 function vrp_paginationmobile($totalpages, $page = 1)
@@ -417,7 +474,7 @@ function vrpCalendar($r, $totalMonths = 3)
       $nextmonth = date("m", mktime(0, 0, 0, date("m") + 1, date("d"), date("Y")));
       $nextyear2 = date("Y", mktime(0, 0, 0, date("m") + 2, date("d"), date("Y")));
       $nextmonth2 = date("m", mktime(0, 0, 0, date("m") + 2, date("d"), date("Y")));
-     * 
+     *
      */
     $theKey = "<br style=\"clear:both;\" /><br/><div id=\"calKey\"><div style=\"float:left;\"><span style=\"float:left;display:block;width:15px;height:15px;background:#ffffff;border:1px solid #404040;\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Available</span> <span style=\"float:left;display:block;width:15px;height:15px;background:#BDBDBD;margin-left:10px;border:1px solid #404040;\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Unavailable</span><br style=\"clear:both;\" /></div><br style=\"clear:both;\" /></div>";
     $ret = "";

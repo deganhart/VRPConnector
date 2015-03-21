@@ -1,7 +1,9 @@
 <div class="container" id="vrpresults">
 
     <?php //include "sidebar.php"; ?>
-
+<!--    PRE -->
+    <?php //print_r($data);?>
+<!--    </PRE>-->
     <?php if ($data->count == 0) { ?>
         <h2>No Results Found</h2>
         <p>Please revise your search criteria.</p>

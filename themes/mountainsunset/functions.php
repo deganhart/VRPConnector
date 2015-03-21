@@ -47,6 +47,12 @@ class mountainsunset
     function add_my_stylesheet()
     {
 
+        wp_enqueue_style('BaseGrid',
+            plugins_url('/mountainsunset/css/base.css?v='.time(), dirname(__FILE__)));
+
+        wp_enqueue_style('FontAwesome',
+            plugins_url('/mountainsunset/css/font-awesome.css', dirname(__FILE__)));
+
         if (file_exists(get_stylesheet_directory() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.css')) {
             wp_enqueue_style('VRPjQueryUISmoothness', get_stylesheet_directory_uri() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.css');
         } else {
@@ -163,7 +169,7 @@ function vrp_pagination($totalPages, $curPage = 1)
     if ($curPage < $totalPages) {
         $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1)];
     }
-    
+
     echo generateList($list );
 }
 

@@ -6,9 +6,9 @@
     padding-left: 70px;
     position: relative;
     background-color:rgb(41,127,184);
-    color:rgb(255,255,255);
-    text-decoration: none;
-    text-transform: uppercase;
+    color:#fff !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
     letter-spacing: 1px;
     margin-bottom: 15px;
 
@@ -26,7 +26,6 @@
     -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
     filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
 }
-
 .button span {
     position: absolute;
     left: 0;

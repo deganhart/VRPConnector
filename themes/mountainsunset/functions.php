@@ -47,8 +47,6 @@ class mountainsunset
     function add_my_stylesheet()
     {
 
-        wp_enqueue_style('BaseGrid',
-            plugins_url('/mountainsunset/css/base.css?v='.time(), dirname(__FILE__)));
 
         wp_enqueue_style('FontAwesome',
             plugins_url('/mountainsunset/css/font-awesome.css', dirname(__FILE__)));
@@ -91,9 +89,10 @@ function generateList($list, $options = [])
 
         $attr = 'class="pagination"';
 
-        $html = "<ul$options->attr"; // Open the menu container
+        $html = "<ul $options->attr>"; // Open the menu container
 
         foreach($dataset as $title => $properties) {
+
             $subMenu = '';
 
             $children = (!empty($properties[$options->child]) ? true : false);
@@ -101,7 +100,9 @@ function generateList($list, $options = [])
             if($children)
                 $subMenu = $recursive($properties[$options->children], TRUE, $options);
 
-            $html .= '<li><a href="?'
+            $html .= '<li class="' . (!empty($properties['class']) ? $properties['class'] : '') . '"><a class="'
+                . (!empty($properties['disabled']) && $properties['disabled'] === true ? ' disabled ' : '')
+                . (!empty($properties['selected']) ? ' current ' : '') . '" href="?'
                 . $properties['pageurl']
                 . 'show=' . $properties['show']
                 . '&page=' . $properties['page']
@@ -139,38 +140,37 @@ function vrp_pagination($totalPages, $curPage = 1)
 {
 
     $_SESSION['pageurl'] = $pageurl = generateSearchQueryString();
-    $curPage = esc_attr($curPage);
+    $curPage = (int) esc_attr($curPage);
     $pageurl = esc_attr($pageurl);
     $show = ( !empty($_GET['show']) ? esc_attr($_GET['show']) : 10 );
 
-    $totalRange = ( $totalPages > 5 ? $curPage + 4 : $totalPages );
-    $startRange = ( $curPage > 5 ? $curPage - 4 : 1 );
+    $totalRange = (int) ( $totalPages > 5 ? $curPage + 4 : $totalPages );
+    $startRange = (int) ( $curPage > 5 ? $curPage - 4 : 1 );
 
     $list = [];
 
-    if($curPage !== 1) {
-        $list['Prev'] = ['pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1)];
-    } else {
-        $list[1] = ['pageurl' => $pageurl, 'show' => $show, 'page' => $curPage];
-    }
+    $list['Prev'] = ['pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1), 'class' => 'button', 'disabled' => ($curPage !== 1 ? false : true)];
+
+    $list[$curPage] = ['pageurl' => $pageurl, 'show' => $show, 'page' => $curPage];
+
 
     foreach (range($startRange, $totalRange) as $incPage) {
 
-        $incPage = esc_attr($incPage);
+        $incPage = (int) esc_attr($incPage);
+
+        if($curPage === $incPage) {
+            $list[$incPage]['selected'] = ($curPage === $incPage ? true : false);
+            continue;
+        }
+
         $list[$incPage] = ['pageurl' => $pageurl, 'show' => $show, 'page' => $incPage];
-        $list[$incPage]['selected'] = ($curPage === $incPage ? true : false);
 
     }
 
-    if ($totalPages > 5) {
-        $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => $curPage - 1];
-    }
+    $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1), 'class' => 'button', 'disabled' => ($totalPages > 5 ? false : true)];
+    $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1), 'class' => 'button', 'disabled' => ($curPage < $totalPages ? false : true)];
 
-    if ($curPage < $totalPages) {
-        $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1)];
-    }
-
-    echo generateList($list );
+    echo generateList($list, ['attr' => 'class="cd-pagination"']);
 }
 
 function vrp_paginationmobile($totalpages, $page = 1)
@@ -275,18 +275,21 @@ function vrpsortlinks($unit)
     if (isset($unit->Rate)) {
         $sortoptions[] = "Rate";
     }
-    // echo "<select class='vrpsorter ui-widget ui-state-default' style='font-size:11px;'><option></option>";
+
+    echo "<select class='vrpsorter'>";
+    echo "<option value=''>Sort By</option>";
+
     if (isset($_GET['search']['sort'])) {
         $sort = $_GET['search']['sort'];
     } else {
         $sort = "";
     }
-    if (isset($_GET['show'])) {
-        $show = $_GET['show'];
-    } else {
-        $show = 10;
-    }
+    $show = ( !empty($_GET['show']) ? esc_attr($_GET['show']) : 10 );
     foreach ($sortoptions as $s) {
+
+        $s = $show;
+        $pageurl = esc_attr($pageurl);
+        $order = esc_attr($order);
 
         if ($sort == $s) {
             if ($order == "low") {
@@ -297,15 +300,15 @@ function vrpsortlinks($unit)
                 $other = "high";
             }
 
-            echo '<li><a href="?' . esc_attr($pageurl) . 'search[sort]=' . esc_attr($s) . '&show=' . esc_attr($show) . '&search[order]=' . esc_attr($order) . '" selected="selected">' . esc_attr($s) . '(' . esc_attr($other) . ' to ' . esc_attr($order) . ')</a></li>';
-            echo '<li><a href="?' . esc_attr($pageurl) . 'search[sort]=' . esc_attr($s) . '&show=' . esc_attr($show) . '&search[order]=' . esc_attr($order) .'">' . esc_attr($s) . '(' . esc_attr($order) . 'to' . esc_attr($other) . ')</a></li>';
+            echo '<option value="?' . $pageurl . 'search[sort]=' . $s . '&show=' . $show . '&search[order]=' . $order . '">' . $s . '(' . $other . ' to ' . $order . ')</option>';
+            echo '<option value="?' . $pageurl . 'search[sort]=' . $s . '&show=' . $show . '&search[order]=' . $order .'">' . $s . '(' . $order . 'to' . $other . ')</option>';
             continue;
         }
 
-        echo '<li><a href="?' . esc_attr($pageurl) . 'search[sort]=' . esc_attr($s) . '&show=' . esc_attr($show) . '&search[order]=low">' . esc_attr($s) . '(low to high)</a></li>';
-        echo '<li><a href="?' . esc_attr($pageurl) . 'search[sort]=' . esc_attr($s) . '&show=' . esc_attr($show) . '&search[order]=high">' . esc_attr($s) . '(high to low)</a></li>';
+        echo '<option value="?' . $pageurl . 'search[sort]=' . $s . '&show=' . $show . '&search[order]=low">' . $s . '(low to high)</option>';
+        echo '<option value="?' . $pageurl . 'search[sort]=' . $s . '&show=' . $show . '&search[order]=high">' . $s . '(high to low)</option>';
     }
-    // echo "</select>";
+     echo "</select>";
 }
 
 function vrpsortlinks2($unit)
@@ -389,15 +392,12 @@ function vrp_resultsperpage()
     } else {
         $show = 10;
     }
-    echo "<ul class='vrpshowing'>";
+    echo "<select name='resultCount' class='vrpshowing'>";
+    echo "<option value=''>Show</option>";
     foreach (array(10, 20, 30) as $v) {
-        if ($show == $v) {
-            echo '<li><a href="?' . esc_attr($pageurl) . '&show=10"><b>' . esc_attr($v) . '</b></a></li>';
-        } else {
-            echo '<li><a href="?' . esc_attr($pageurl) . '&show=' . esc_attr($v) . '">' . esc_attr($v) . '</a></li>';
-        }
+        echo '<option ' . (!empty($_GET['show']) && (int) $_GET['show'] == $v ? 'selected="selected"' : '') . ' value="?' . esc_attr($pageurl) . '&show=' . esc_attr($v) . '">' . esc_attr($v) . '</option>';
     }
-    echo "</ul>";
+    echo "</select>";
 }
 
 function dateSeries($start_date, $num)

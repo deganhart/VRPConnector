@@ -67,7 +67,7 @@ class mountainsunset
     }
 }
 
-function setListOptions($options)
+function generateList($list, $options = [])
 {
 
     $configuredOptions = ['attr' => '', 'child' => 'children'];
@@ -79,14 +79,7 @@ function setListOptions($options)
         $configuredOptions['attr'] = $options['attr'];
     }
 
-    return (object) $configuredOptions;
-
-}
-
-function generateList($list, $options = [])
-{
-
-    $options = setListOptions($options);
+    $options = (object) $configuredOptions;
 
     $recursive = function ($dataset, $child = FALSE, $options) use ( &$recursive ) {
 
@@ -136,61 +129,41 @@ function generateSearchQueryString() {
     return rtrim($fieldString, '&');
 }
 
-function vrp_pagination($totalpages, $page = 1)
+function vrp_pagination($totalPages, $curPage = 1)
 {
 
     $_SESSION['pageurl'] = $pageurl = generateSearchQueryString();
+    $curPage = esc_attr($curPage);
+    $pageurl = esc_attr($pageurl);
+    $show = ( !empty($_GET['show']) ? esc_attr($_GET['show']) : 10 );
 
-    if (isset($_GET['show'])) {
-        $show = $_GET['show'];
-    } else {
-        $show = 10;
-    }
-
-    if ($totalpages == 1) {
-        return;
-    }
+    $totalRange = ( $totalPages > 5 ? $curPage + 4 : $totalPages );
+    $startRange = ( $curPage > 5 ? $curPage - 4 : 1 );
 
     $list = [];
-    echo "<ul>";
-    if ($page > 1) {
-        $p = $page - 1;
-        $list['Prev'] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
-    }
 
-    if ($totalpages > 5) {
-        $totalrange = $page + 4;
-        $startrange = 1;
-        if ($page > 5) {
-            $startrange = $page - 4;
-        }
+    if($curPage !== 1) {
+        $list['Prev'] = ['pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1)];
     } else {
-        $totalrange = $totalpages;
-        $startrange = 1;
+        $list[1] = ['pageurl' => $pageurl, 'show' => $show, 'page' => $curPage];
     }
-    if ($startrange > 1) {
-        $list[1] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => 1];
+
+    foreach (range($startRange, $totalRange) as $incPage) {
+
+        $incPage = esc_attr($incPage);
+        $list[$incPage] = ['pageurl' => $pageurl, 'show' => $show, 'page' => $incPage];
+        $list[$incPage]['selected'] = ($curPage === $incPage ? true : false);
 
     }
 
-    foreach (range($startrange, $totalrange) as $p) {
-        $list[esc_attr($p)] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
-        if ($page == $p) {
-            $list[esc_attr($p)]['active'] = true;
-        } else {
-            $list[esc_attr($p)]['active'] = false;
-        }
-    }
-    if ($totalpages > 5) {
-        $list[esc_attr($p)] = ['active' => false, 'pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
+    if ($totalPages > 5) {
+        $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => $curPage - 1];
     }
 
-    if ($page < $totalpages) {
-        $p = $page + 1;
-        $list['Next'] = ['active' => false, 'pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
+    if ($curPage < $totalPages) {
+        $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1)];
     }
-//    echo "<PRE>";
-//    print_r($list);die();
+    
     echo generateList($list );
 }
 

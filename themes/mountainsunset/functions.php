@@ -70,8 +70,11 @@ class mountainsunset
 function setListOptions($options)
 {
 
-    $configuredOptions = ['attr' => ''];
+    $configuredOptions = ['attr' => '', 'child' => 'children'];
 
+    if(!empty($options['child'])) {
+        $configuredOptions['child'] = $options['child'];
+    }
     if(!empty($options['attr'])) {
         $configuredOptions['attr'] = $options['attr'];
     }
@@ -83,33 +86,34 @@ function setListOptions($options)
 function generateList($list, $options = [])
 {
 
-//    $list['Prev'] = ['pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
-        $options = setListOptions($options);
+    $options = setListOptions($options);
 
-        $recursive = function ($dataset, $child = FALSE, $options) use ( &$recursive ) {
+    $recursive = function ($dataset, $child = FALSE, $options) use ( &$recursive ) {
 
-            $attr = 'class="pagination"';
+        $attr = 'class="pagination"';
 
-            $html = "<ul$options->attr"; // Open the menu container
+        $html = "<ul$options->attr"; // Open the menu container
 
-            foreach($dataset as $title => $properties) {
+        foreach($dataset as $title => $properties) {
+            $subMenu = '';
 
-                $subMenu = '';
+            $children = (!empty($properties[$options->child]) ? true : false);
 
-                $children = (!empty($properties->children) ? true : false);
+            if($children)
+                $subMenu = $recursive($properties[$options->children], TRUE, $options);
 
-                if($children)
-                    $subMenu = $recursive($properties->children, TRUE, $options);
+            $html .= '<li><a href="?'
+                . $properties['pageurl']
+                . 'show=' . $properties['show']
+                . '&page=' . $properties['page']
+                . '">' . $title . '</a>'
+                . $subMenu . '</li>';
 
-                $html .= '<li>'
-                    . '<a href="?' . $properties->pageurl  . 'show=' . $properties->show . '&page=' . $properties->page . '">' . $title . '</a>'
-                    . $subMenu . '</li>';
+            unset($children, $subMenu);
 
-                unset($children, $subMenu);
-
-            }
-            return $html . "</ul>";
-        };
+        }
+        return $html . "</ul>";
+    };
 
     return $recursive($list, FALSE, $options);
 
@@ -185,8 +189,9 @@ function vrp_pagination($totalpages, $page = 1)
         $p = $page + 1;
         $list['Next'] = ['active' => false, 'pageurl' => esc_attr($pageurl), 'show' => esc_attr($show), 'page' => esc_attr($p)];
     }
-
-    echo generateList($list);
+//    echo "<PRE>";
+//    print_r($list);die();
+    echo generateList($list );
 }
 
 function vrp_paginationmobile($totalpages, $page = 1)

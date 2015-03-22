@@ -1,24 +1,22 @@
 ;var VRP = Object.create(null);
 
-VRP.map = (function($, global){
+VRP.map = (function($, global, undefined){
 
-    var initialize = (function() {
+    $(function(){
+
         var map;
 
-        function initialize() {
-            var mapOptions = {
-                zoom: 8,
-                center: new google.maps.LatLng(-34.397, 150.644)
-            };
-            map = new google.maps.Map(document.getElementById('vrp-map-canvas'),
-                mapOptions);
-        }
+        var mapOptions = {
+            zoom: 8,
+            center: new global.google.maps.LatLng(-34.397, 150.644)
+        };
 
-        google.maps.event.addDomListener(window, 'load', initialize);
-    } ());
+        map = new global.google.maps.Map(document.getElementById('vrp-map-canvas'), mapOptions);
+
+    });
 
     return {
         //returnPrivate: private()
     }
 
-}(jQuery, window, undefined));
+}(jQuery, window));

@@ -5,10 +5,12 @@ VRP.mRespond = (function($, global){
     var responseActive = false;
     var initializedWidth = 0;
 
-    global.onload = function(){
+    $(function(){
+
         initializedWidth = $('#vrp').width();
         resizeHandler();
-    }
+
+    });
 
     var resizeHandler = function() {
         if(initializedWidth <= 660) {

@@ -34,7 +34,8 @@ class mountainsunset
         wp_register_script('vrpMRespondModule', plugins_url('/mountainsunset/js/vrp.mRespond.js', dirname(__FILE__)));
         wp_enqueue_script('vrpMRespondModule');
 
-        wp_enqueue_script('googlemaps','http://maps.googleapis.com/maps/api/js?sensor=true');
+        wp_register_script('googleMap', 'https://maps.googleapis.com/maps/api/js?v=3.exp');
+        wp_enqueue_script('googleMap');
 //		if (isset($wp_query->query_vars['action'])) {
 //			if ('unit' == $wp_query->query_vars['action']){
 //			}

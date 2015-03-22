@@ -1690,13 +1690,21 @@ animated buttons - animate the text inside prev and next buttons
     display: none;
 }
 
+
 /**********************************
- ********** MEDIA QUERY BREAKPOINTS STYLING **********
+ MAP STYLING
  **********************************/
 
 
+#vrp #vrp-map-canvas {
+    width:100%;
+    height:25em;
+    margin-bottom:2em;
+}
 
-
+/**********************************
+ MEDIA QUERY BREAKPOINTS STYLING
+ **********************************/
 /*==========  Mobile First Method  ==========*/
 
 /* Custom, iPhone Retina */
@@ -1723,34 +1731,5 @@ animated buttons - animate the text inside prev and next buttons
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-
-}
-
-
-
-/*==========  Non-Mobile First Method  ==========*/
-
-/* Large Devices, Wide Screens */
-@media only screen and (max-width : 1200px) {
-
-}
-
-/* Medium Devices, Desktops */
-@media only screen and (max-width : 992px) {
-
-}
-
-/* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
-
-}
-
-/* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px) {
-
-}
-
-/* Custom, iPhone Retina */
-@media only screen and (max-width : 320px) {
 
 }

@@ -29,11 +29,16 @@ class mountainsunset
         }
 		global $wp_query;
 
-		if (isset($wp_query->query_vars['action'])) {
-			if ('unit' == $wp_query->query_vars['action']){
-				wp_enqueue_script('googlemaps','http://maps.googleapis.com/maps/api/js?sensor=true');
-			}
-		}
+        wp_register_script('vrpMapModule', plugins_url('/mountainsunset/js/vrp.map.js', dirname(__FILE__)));
+        wp_enqueue_script('vrpMapModule');
+        wp_register_script('vrpMRespondModule', plugins_url('/mountainsunset/js/vrp.mRespond.js', dirname(__FILE__)));
+        wp_enqueue_script('vrpMRespondModule');
+
+        wp_enqueue_script('googlemaps','http://maps.googleapis.com/maps/api/js?sensor=true');
+//		if (isset($wp_query->query_vars['action'])) {
+//			if ('unit' == $wp_query->query_vars['action']){
+//			}
+//		}
 
         $script_vars = [
             'site_url' => site_url(),
@@ -168,7 +173,7 @@ function vrp_pagination($totalPages, $curPage = 1)
     $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1), 'class' => 'button', 'disabled' => ($totalPages > 5 ? false : true)];
     $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1), 'class' => 'button', 'disabled' => ($curPage < $totalPages ? false : true)];
 
-    return generateList($list, ['attr' => 'class="vpr-cd-pagination"']);
+    return generateList($list, ['attr' => 'class="vrp-cd-pagination"']);
 }
 
 function vrp_paginationmobile($totalpages, $page = 1)

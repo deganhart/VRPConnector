@@ -1,5 +1,12 @@
 /*
- **********************************
+ * wp reset
+ */
+
+.entry-content #vrp a, .entry-summary #vrp a, .page-content #vrp a  {
+    border:none !important;
+}
+
+/**********************************
  BOOTSTRAP GRID & TYPOGRPAHY RESET
  **********************************
 */

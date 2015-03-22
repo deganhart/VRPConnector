@@ -87,8 +87,6 @@ function generateList($list, $options = [])
 
     $recursive = function ($dataset, $child = FALSE, $options) use ( &$recursive ) {
 
-        $attr = 'class="pagination"';
-
         $html = "<ul $options->attr>"; // Open the menu container
 
         foreach($dataset as $title => $properties) {
@@ -170,7 +168,7 @@ function vrp_pagination($totalPages, $curPage = 1)
     $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1), 'class' => 'button', 'disabled' => ($totalPages > 5 ? false : true)];
     $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1), 'class' => 'button', 'disabled' => ($curPage < $totalPages ? false : true)];
 
-    echo generateList($list, ['attr' => 'class="cd-pagination"']);
+    return generateList($list, ['attr' => 'class="vpr-cd-pagination"']);
 }
 
 function vrp_paginationmobile($totalpages, $page = 1)

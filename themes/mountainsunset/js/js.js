@@ -1,6 +1,13 @@
 jQuery(document).ready(function(){
-    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+    jQuery('#vpr-list').click(function(e) {
+        e.preventDefault();
+        jQuery('.list-grid-layout').attr('class', 'col-xs-12 list-grid-layout vpr-list-style');
+    });
+    jQuery('#vpr-grid').click(function(e){
+        e.preventDefault();
+        jQuery('.list-grid-layout').attr('class', 'col-md-4 col-xs-6 col-sm-12 vpr-list-grid-layout vpr-grid-style');
+    });
+
     // Unit Page Tabs
     unitTabs = jQuery("#tabs").tabs();
 
@@ -401,7 +408,6 @@ function checkavailability(){
         }
     });
 }
-
 function ratebreakdown(obj) {
     var tbl = jQuery("#ratebreakdown");
     console.log(obj);

@@ -12,7 +12,7 @@
 
     var resizeHandler = function() {
         if(initializedWidth <= 660) {
-            console.log($('.vrp-actions').find('a:first-child'));
+
             responseActive = true;
             $('.vrp-item-wrap').removeClass('vrp-col-md-4 vrp-col-sm-6').addClass('vrp-col-md-6 vrp-col-sm-12');
             $('.vrp-favorite-action').removeClass('vrp-col-md-3').addClass('vrp-col-md-5');

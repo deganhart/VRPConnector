@@ -10,14 +10,14 @@
 
     var generateMap = function(geometryLocation, el) {
 
-        var map, mapOptions;
+        var map, mapOptions, mapContainer = el.find('.vrp-overlay-map-container');
 
         mapOptions = Object.create({
             zoom: 6,
             center: new global.google.maps.LatLng(geometryLocation.k, geometryLocation.D)
         });
 
-        map = new global.google.maps.Map(el[0], mapOptions);
+        map = new global.google.maps.Map(mapContainer[0], mapOptions);
 
         //map.setCenter(geometryLocation);
 
@@ -26,7 +26,7 @@
             position: geometryLocation
         });
 
-        el.data('vrp-processed', true);
+        el.attr('data-vrp-processed', true);
 
     }
 
@@ -47,7 +47,7 @@
     return {
         "processed" : function(index) {
             var listing = $('.vrp-item').get(index),
-                listingMapProcessed = $(listing).data('vrp-processed');
+                listingMapProcessed = $(listing).attr('data-vrp-processed');
 
             return listingMapProcessed;
         },
@@ -57,7 +57,7 @@
             //console.log(markers);
             var bool = geocodeAddress(address, function(result) {
                 if(result !== false) {
-                    generateMap(result[0].geometry.location, el.find('.vrp-overlay-map-container'));
+                    generateMap(result[0].geometry.location, el);
                     return true;
                 } else {
                     return false;

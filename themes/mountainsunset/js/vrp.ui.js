@@ -16,8 +16,9 @@
 
         overlay.css({left: handle.width(), top: 0});
 
-        if(VRP.map.processed(index) == true) {
 
+        if(VRP.map.processed(index) === 'true') {
+            
             triggerOverlayAction(overlay);
 
         } else {

@@ -1657,7 +1657,7 @@ animated buttons - animate the text inside prev and next buttons
     top:-101%;
     right:0;
     left:0;
-    width:95%;
+    width:100%;
     height:95%;
     background:rgba(0,0,0,0.5);
     padding:5px 10px;

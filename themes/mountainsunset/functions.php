@@ -392,7 +392,7 @@ function vrp_resultsperpage()
         $fields_string .= 'search[' . $key . ']=' . $value . '&';
     }
 
-    rtrim($fields_string, '&');
+    $fields_string = rtrim($fields_string, '&');
     $pageurl = $fields_string;
 
     if (isset($_GET['show'])) {

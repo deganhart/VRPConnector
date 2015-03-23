@@ -1,12 +1,61 @@
+
+(function($, global, undefined){
+    /* Handles */
+    $(function(){
+
+        $('.vrpshowing').change(function() {
+
+            var that = $(this);
+
+            if(that.val() == '') {
+                return;
+            }
+
+            location.search = VRP.queryString.formatQueryString(that.val());
+
+        });
+
+        $('.vrpsorter').change(function() {
+
+            var that = $(this);
+
+            if(that.val() == '') {
+                return;
+            }
+
+            location.search = VRP.queryString.formatQueryString(that.val());
+        });
+
+        $('.vrp-thumbnail').hover(function(e){
+
+            var that = $(this).parent(),
+                index = $('.vrp-item').index(that);
+            console.log(VRP.ui);
+            VRP.ui.overlay(that, index, e);
+
+        }, function(e) {
+
+            var that = $(this).parent(),
+                index = $('.vrp-item').index(that);
+
+            VRP.ui.overlay(that, index, e);
+
+        });
+
+        $('#vpr-list').click(function(e) {
+            e.preventDefault();
+            $('.list-grid-layout').attr('class', 'col-xs-12 list-grid-layout vpr-list-style');
+        });
+
+        $('#vpr-grid').click(function(e){
+            e.preventDefault();
+            $('.list-grid-layout').attr('class', 'col-md-4 col-xs-6 col-sm-12 vpr-list-grid-layout vpr-grid-style');
+        });
+
+    });
+}(jQuery, window));
+
 jQuery(document).ready(function(){
-    jQuery('#vpr-list').click(function(e) {
-        e.preventDefault();
-        jQuery('.list-grid-layout').attr('class', 'col-xs-12 list-grid-layout vpr-list-style');
-    });
-    jQuery('#vpr-grid').click(function(e){
-        e.preventDefault();
-        jQuery('.list-grid-layout').attr('class', 'col-md-4 col-xs-6 col-sm-12 vpr-list-grid-layout vpr-grid-style');
-    });
 
     // Unit Page Tabs
     unitTabs = jQuery("#tabs").tabs();
@@ -23,11 +72,6 @@ jQuery(document).ready(function(){
         var showImage = "#full"+photoid;
         jQuery("#photo img").hide();
         jQuery("#photo "+showImage).show();
-    });
-
-    jQuery(".vrpsorter").change(function(){
-        var url=jQuery(this).val();
-        window.location=url;
     });
 
     var inquireopen=false;

@@ -1,8 +1,8 @@
 <!-- all the important responsive layout stuff -->
 <div id="vrp">
-    <div id="vrp-map">
-        <div id="vrp-map-canvas"></div>
-    </div>
+<!--    <div id="vrp-map">-->
+<!--        <div id="vrp-map-canvas"></div>-->
+<!--    </div>-->
     <div id="vrpresults" class="vrp-container-fluid hide">
 <!--        <PRE>-->
 <!--        --><?php //print_r($data);?>

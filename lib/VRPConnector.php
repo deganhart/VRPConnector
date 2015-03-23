@@ -415,11 +415,11 @@ class VRPConnector
         if ($slug == "list") {
             // Special by Category
             $data = json_decode($this->call("getspecialsbycat/1"));
-            $this->pageTitle = $data->title;
+            $this->pageTitle = "Specials";
             return $this->loadTheme("specials", $data);
         }
 
-        if (is_integer($slug)) {
+        if (is_numeric($slug)) {
             // Special by ID
             $data = json_decode($this->call("getspecialbyid/" . $slug));
             $this->pageTitle = $data->title;

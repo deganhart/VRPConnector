@@ -10,7 +10,7 @@
 
     }
 
-    var invokeListingOverlayHandler = function (handle, index, e) {
+    var requestListingOverlayAction = function (handle, index, e) {
 
         var overlay = handle.find('.vrp-overlay');
 
@@ -18,7 +18,7 @@
 
 
         if(VRP.map.processed(index) === 'true') {
-            
+
             triggerOverlayAction(overlay);
 
         } else {
@@ -34,50 +34,10 @@
 
     }
 
-    /* Handles */
-    $(function(){
-
-        $('.vrpshowing').change(function() {
-
-            var that = $(this);
-
-            if(that.val() == '') {
-                return;
-            }
-
-            location.search = VRP.queryString.formatQueryString(that.val());
-
-        });
-
-        $('.vrpsorter').change(function() {
-
-            var that = $(this);
-
-            if(that.val() == '') {
-                return;
-            }
-
-            location.search = VRP.queryString.formatQueryString(that.val());
-        });
-
-        $('.vrp-item').hover(function(e){
-
-            var that = $(this),
-                index = $('.vrp-item').index(that);
-
-            invokeListingOverlayHandler(that, index, e);
-
-        }, function(e) {
-
-            var that = $(this),
-                index = $('.vrp-item').index(that);
-
-            invokeListingOverlayHandler(that, index, e);
-
-        });
-
-    });
     return {
+        'overlay': function(handle, index, e) {
+            requestListingOverlayAction(handle, index, e);
+        }
     }
 
 }(jQuery, window));

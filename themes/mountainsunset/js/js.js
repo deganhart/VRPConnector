@@ -1,4 +1,3 @@
-
 (function($, global, undefined){
     /* Handles */
     $(function(){
@@ -26,11 +25,38 @@
             location.search = VRP.queryString.formatQueryString(that.val());
         });
 
+
+        $('.vrpsorter').change(function() {
+
+            var that = $(this);
+
+            if(that.val() == '') {
+                return;
+            }
+
+            location.search = VRP.queryString.formatQueryString(that.val());
+        });
+
+        $('.vrp-cd-pagination a').click(function(e){
+
+            e.preventDefault();
+
+            var that = $(this),
+                parameters = that.attr('href');
+
+            if(that.hasClass('current') || that.hasClass('disabled')) {
+                return;
+            }
+
+            location.search = VRP.queryString.formatQueryString(parameters);
+
+        });
+
         $('.vrp-thumbnail').hover(function(e){
 
             var that = $(this).parent(),
                 index = $('.vrp-item').index(that);
-            console.log(VRP.ui);
+
             VRP.ui.overlay(that, index, e);
 
         }, function(e) {

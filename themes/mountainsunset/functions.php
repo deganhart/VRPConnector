@@ -180,7 +180,7 @@ function vrp_pagination($totalPages, $curPage = 1)
 
     }
 
-    $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage - 1), 'class' => 'button', 'disabled' => ($totalPages > 5 ? false : true)];
+    $list['Last'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => $totalPages, 'class' => 'button', 'disabled' => ($totalPages > 5 ? false : true)];
     $list['Next'] = ['active' => false, 'pageurl' => $pageurl, 'show' => $show, 'page' => ($curPage + 1), 'class' => 'button', 'disabled' => ($curPage < $totalPages ? false : true)];
 
     return generateList($list, ['attr' => 'class="vrp-cd-pagination"']);

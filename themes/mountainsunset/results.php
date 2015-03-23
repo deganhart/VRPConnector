@@ -94,7 +94,7 @@
                                 Reserve now
                             </a>
                         </div>
-<!--                        <img src="http://placehold.it/285x200/ddd/ddd" class="vrp-img-thumbnail vrp-img-responsive vrp-center-block" width="97%" alt="" /> -->
+
                     </div>
 
                     <div class="vrp-caption">

@@ -29,10 +29,14 @@ class mountainsunset
         }
 		global $wp_query;
 
+        wp_register_script('vrpNamespace', plugins_url('/mountainsunset/js/vrp.namespace.js', dirname(__FILE__)));
+        wp_enqueue_script('vrpNamespace');
         wp_register_script('vrpMapModule', plugins_url('/mountainsunset/js/vrp.map.js', dirname(__FILE__)));
         wp_enqueue_script('vrpMapModule');
         wp_register_script('vrpMRespondModule', plugins_url('/mountainsunset/js/vrp.mRespond.js', dirname(__FILE__)));
         wp_enqueue_script('vrpMRespondModule');
+        wp_register_script('vrpUIModule', plugins_url('/mountainsunset/js/vrp.ui.js', dirname(__FILE__)));
+        wp_enqueue_script('vrpUIModule');
 
         wp_register_script('googleMap', 'https://maps.googleapis.com/maps/api/js?v=3.exp');
         wp_enqueue_script('googleMap');

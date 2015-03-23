@@ -1657,13 +1657,13 @@ animated buttons - animate the text inside prev and next buttons
     top:-101%;
     right:0;
     left:0;
-    width:100%;
+    width:95%;
     height:95%;
     background:rgba(0,0,0,0.5);
     padding:5px 10px;
 }
 .vrp-actions a { margin:0!important; display:block !important;}
-.vrp-actions a:first-child { margin-top:1.75em!important;}
+.vrp-actions a:first-child { margin-top:2.7em!important; margin-bottom:1em!important;}
 .vpr-meta-wrapper {
     margin-right:1em;
 }
@@ -1692,14 +1692,37 @@ animated buttons - animate the text inside prev and next buttons
 
 
 /**********************************
- MAP STYLING
+ OVERLAY & MAP STYLING
  **********************************/
-
-
-#vrp #vrp-map-canvas {
+#vrp .vrp-detailed {
+    color:#fff!important;
+    padding:0 2em 1.5em 2em;
+}
+#vrp .vrp-detailed h4 {
+    color:#fff;
+    font-size:2.3em;
+    margin:0.3em 0 0.3em 0;
+    padding:0;
+    text-shadow:2px 2px #111;
+}
+#vrp .vrp-detailed p {
+    line-height: 1.5000em; /* 18px */
+    color:#fff;
+    font-size:1.5em;
+    text-shadow:1px 1px #1d1d1d;
+}
+#vrp .vrp-overlay {
+    display:none;
+    background:rgba(0,0,0,0.7);
+    position:absolute;
+    z-index:2;
+    width:40em;
+    box-shadow:15px 15px 15px #111;
+}
+#vrp .vrp-overlay-map-container {
     width:100%;
     height:25em;
-    margin-bottom:2em;
+    margin-bottom:1em;
 }
 
 /**********************************

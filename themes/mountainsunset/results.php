@@ -1,13 +1,9 @@
 <!-- all the important responsive layout stuff -->
 <div id="vrp">
-<!--    <div id="vrp-map">-->
-<!--        <div id="vrp-map-canvas"></div>-->
-<!--    </div>-->
+    <div id="vrp-map">
+        <div class="vrp-map-canvas"></div>
+    </div>
     <div id="vrpresults" class="vrp-container-fluid hide">
-<!--        <PRE>-->
-<!--        --><?php //print_r($data);?>
-<!--        </PRE>-->
-
         <?php if ($data->count === 0) : ?>
 
             <div class="vrp-row">
@@ -46,23 +42,54 @@
         <div class="vrp-row">
             <div class="vrp-col-xs-12"><hr /></div>
         </div>
-
         <div class="vrp-row">
-        <?php foreach($data->results as $index => $a_unit) : ?>
+        <?php foreach($data->results as $index => $unit) : ?>
 
 
             <div class="vrp-col-md-4 vrp-col-xs-12 vrp-col-sm-6 vrp-item-wrap vrp-grid">
-                <div class="vrp-item">
+                <div class="vrp-item" data-vrp-processed="false" data-vrp-address="<?=$unit->Address1;?> <?=$unit->City;?>, <?=$unit->State;?>">
+                    <div class="vrp-overlay">
+                        <div class="vrp-overlay-map-container">
 
-                    <div class="vrp-thumbnail text-center" style="background-image:url(<?=esc_url($a_unit->Thumb); ?>);">
+                        </div>
+                        <div class="vrp-overlay-description">
+
+
+                            <div class="vrp-detailed">
+                                <div class="vrp-row">
+                                    <div class="vrp-col-xs-12">
+                                        <h4 class="vrp-pull-left"><?=esc_html($unit->Name); ?></h4>
+                                        <div class="vpr-meta-wrapper vrp-pull-right">
+
+                                            <span class="vrp-epink pull-right">
+                                                <strong><?=esc_html($unit->Bedrooms); ?> Beds</strong>
+                                            </span>
+
+                                            <span class="vrp-kiwi pull-right">
+                                                <strong><?=esc_html($unit->Bathrooms); ?> Baths</strong>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vrp-row">
+                                    <div class="vrp-col-xs-12">
+                                        <p><?=esc_html($unit->Description);?></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="vrp-thumbnail text-center" style="background-image:url(<?=esc_url($unit->Thumb); ?>);">
 
                         <div class="vrp-actions">
-                            <a href="<?php echo site_url() . "/vrp/favorites/show";?>" data-unit="<?php echo $a_unit->id; ?>" class="vrp-favorite-button vrp-btn purple text-center">
+                            <a href="<?php echo site_url() . "/vrp/favorites/show";?>" data-unit="<?php echo $unit->id; ?>" class="vrp-favorite-button vrp-btn purple text-center">
                                 <i class="fa fa-fw fa-lg fa-heart"></i>
                                 Add to favorites
                             </a>
 
-                            <a href="#" data-unit="<?php echo $a_unit->id; ?>" class="vrp-btn orange">
+                            <a href="#" data-unit="<?php echo $unit->id; ?>" class="vrp-btn orange">
                                 <i class="fa fa-fw fa-lg fa-calendar"></i>
                                 Reserve now
                             </a>
@@ -73,7 +100,7 @@
                     <div class="vrp-caption">
                         <div class="vrp-row">
                             <div class="vrp-col-xs-8 vrp-col-sm-7">
-                                <h4><?=esc_html($a_unit->Name); ?></h4>
+                                <h4><?=esc_html($unit->Name); ?></h4>
                             </div>
                             <div class="vrp-col-xs-4 vrp-col-sm-5">
                                 <div class="vpr-meta-wrapper">
@@ -81,14 +108,14 @@
                                         <div class="col-xs-6">
 
                                             <span class="vrp-epink pull-right">
-                                                <strong><?=esc_html($a_unit->Bedrooms); ?> Beds</strong>
+                                                <strong><?=esc_html($unit->Bedrooms); ?> Beds</strong>
                                             </span>
 
                                         </div>
                                         <div class="col-xs-6">
 
                                             <span class="vrp-kiwi pull-right">
-                                                <strong><?=esc_html($a_unit->Bathrooms); ?> Baths</strong>
+                                                <strong><?=esc_html($unit->Bathrooms); ?> Baths</strong>
                                             </span>
 
                                         </div>

@@ -1,6 +1,4 @@
-;var VRP = Object.create(null);
-
-VRP.mRespond = (function($, global){
+;VRP.mRespond = (function($, global){
 
     var responseActive = false;
     var initializedWidth = 0;

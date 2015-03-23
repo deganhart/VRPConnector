@@ -10,6 +10,8 @@
 
     });
 
+    //@TODO: strip bootstrap & use basic col/row with float, and use JS enabled media queries for breakpoints..
+    //adds the maximum compatibility with other themes, especially with the vrp-* prefix.
     var resizeHandler = function() {
         if(initializedWidth <= 660) {
 

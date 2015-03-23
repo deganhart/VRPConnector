@@ -37,6 +37,8 @@ class mountainsunset
         wp_enqueue_script('vrpMRespondModule');
         wp_register_script('vrpUIModule', plugins_url('/mountainsunset/js/vrp.ui.js', dirname(__FILE__)));
         wp_enqueue_script('vrpUIModule');
+        wp_register_script('vrpQueryStringModule', plugins_url('/mountainsunset/js/vrp.queryString.js', dirname(__FILE__)));
+        wp_enqueue_script('vrpQueryStringModule');
 
         wp_register_script('googleMap', 'https://maps.googleapis.com/maps/api/js?v=3.exp');
         wp_enqueue_script('googleMap');
@@ -400,7 +402,7 @@ function vrp_resultsperpage()
     } else {
         $show = 10;
     }
-    echo "<select name='resultCount' class='vrpshowing'>";
+    echo "<select autocomplete='off' name='resultCount' class='vrpshowing'>";
     echo "<option value=''>Show</option>";
     foreach (array(10, 20, 30) as $v) {
         echo '<option ' . (!empty($_GET['show']) && (int) $_GET['show'] == $v ? 'selected="selected"' : '') . ' value="?' . esc_attr($pageurl) . '&show=' . esc_attr($v) . '">' . esc_attr($v) . '</option>';

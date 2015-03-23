@@ -44,13 +44,19 @@
                 return;
             }
 
-            var currentParsed = VRP.queryString.parse(location.search);
-            var parsed = VRP.queryString.parse(that.val());
+            location.search = VRP.queryString.formatQueryString(that.val());
 
-            var combined = Object.assign(currentParsed, parsed);
+        });
 
-            location.search = queryString.stringify(parsed);
+        $('.vrpsorter').change(function() {
 
+            var that = $(this);
+
+            if(that.val() == '') {
+                return;
+            }
+
+            location.search = VRP.queryString.formatQueryString(that.val());
         });
 
         $('.vrp-item').hover(function(e){

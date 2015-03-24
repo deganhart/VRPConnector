@@ -301,7 +301,7 @@ class VRPConnector
                 }
                 break;
 
-            case "special": // If Special Page.
+            case "specials": // If Special Page.
                 $content = $this->specialPage($slug);
                 $pagetitle = $this->pageTitle; //
                 break;

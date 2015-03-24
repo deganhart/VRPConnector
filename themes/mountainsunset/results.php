@@ -14,8 +14,6 @@
         <?php else: ?>
         <!-- Total number of results found -->
         <div class="vrp-row">
-
-
             <!--                                vrp-wrapper-presentation-actions-->
             <div class="vrp-col-md-10">
                 <div class="vrp-form-filter-action">
@@ -31,7 +29,7 @@
                     <a href="#" id="vrp-grid" class="vrp-btn">
                         <i class="fa fa-fw fa-lg fa-th"></i>
                     </a>
-                    <a href="<?=site_url() . "/vrp/favorites/show";?>" id="vrp-favorites" class="vrp-btn turquoise">
+                    <a href="<?php echo site_url() . "/vrp/favorites/show";?>" id="vrp-favorites" class="vrp-btn turquoise">
                         <i class="fa fa-fw fa-lg fa-heart"></i>
                     </a>
                 </div>
@@ -44,78 +42,64 @@
         </div>
         <div class="vrp-row">
         <?php foreach($data->results as $index => $unit) : ?>
-
-
             <div class="vrp-col-md-4 vrp-col-xs-12 vrp-col-sm-6 vrp-item-wrap vrp-grid">
-                <div class="vrp-item" data-vrp-processed="false" data-vrp-address="<?=$unit->Address1;?> <?=$unit->City;?>, <?=$unit->State;?>">
+                <div class="vrp-item"
+                     data-vrp-processed="false"
+                     data-vrp-address="<?php echo $unit->Address1;?> <?php echo $unit->City;?>, <?php echo $unit->State;?>">
                     <div class="vrp-overlay">
                         <div class="vrp-overlay-map-container">
 
                         </div>
                         <div class="vrp-overlay-description">
-
-
                             <div class="vrp-detailed">
                                 <div class="vrp-row">
                                     <div class="vrp-col-xs-12">
-                                        <h4 class="vrp-pull-left"><?=esc_html($unit->Name); ?></h4>
-                                        <div class="vpr-meta-wrapper vrp-pull-right">
-
-                                            <span class="vrp-epink pull-right">
-                                                <strong><?=esc_html($unit->Bedrooms); ?> Beds</strong>
-                                            </span>
-
-                                            <span class="vrp-kiwi pull-right">
-                                                <strong><?=esc_html($unit->Bathrooms); ?> Baths</strong>
-                                            </span>
-
-                                        </div>
+                                        <h4 class="vrp-pull-left"><?php echo esc_html($unit->Name); ?></h4>
                                     </div>
                                 </div>
                                 <div class="vrp-row">
                                     <div class="vrp-col-xs-12">
-                                        <p><?=esc_html($unit->Description);?></p>
+                                        <p><?php echo esc_html($unit->Description);?></p>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <div class="vrp-thumbnail text-center" style="background-image:url(<?=esc_url($unit->Thumb); ?>);">
+                    <div class="vrp-thumbnail text-center" style="background-image:url(<?php echo esc_url($unit->Thumb); ?>);">
 
                         <div class="vrp-actions">
-                            <a href="<?php echo site_url() . "/vrp/favorites/show";?>" data-unit="<?php echo $unit->id; ?>" class="vrp-favorite-button vrp-btn purple text-center">
+                            <a href="#" data-unit="<?php echo $unit->id; ?>" class="vrp-favorite-button vrp-btn purple text-center">
                                 <i class="fa fa-fw fa-lg fa-heart"></i>
                                 Add to favorites
                             </a>
 
-                            <a href="#" data-unit="<?php echo $unit->id; ?>" class="vrp-btn orange">
+                            <a href="<?php echo site_url() . "/vrp/unit/" . $unit->page_slug;?>" data-unit="<?php echo $unit->id; ?>" class="vrp-btn orange">
                                 <i class="fa fa-fw fa-lg fa-calendar"></i>
                                 Reserve now
                             </a>
                         </div>
-
                     </div>
 
                     <div class="vrp-caption">
                         <div class="vrp-row">
                             <div class="vrp-col-xs-8 vrp-col-sm-7">
-                                <h4><?=esc_html($unit->Name); ?></h4>
+                                <h4><?php echo esc_html($unit->Name); ?></h4>
                             </div>
                             <div class="vrp-col-xs-4 vrp-col-sm-5">
-                                <div class="vpr-meta-wrapper">
-                                    <div class="vpr-row">
+                                <div class="vrp-meta-wrapper">
+                                    <div class="vrp-row">
                                         <div class="col-xs-6">
 
                                             <span class="vrp-epink pull-right">
-                                                <strong><?=esc_html($unit->Bedrooms); ?> Beds</strong>
+                                                <strong><?php echo esc_html($unit->Bedrooms); ?> Beds</strong>
                                             </span>
 
                                         </div>
                                         <div class="col-xs-6">
 
                                             <span class="vrp-kiwi pull-right">
-                                                <strong><?=esc_html($unit->Bathrooms); ?> Baths</strong>
+                                                <strong><?php echo esc_html($unit->Bathrooms); ?> Baths</strong>
                                             </span>
 
                                         </div>
@@ -132,7 +116,7 @@
         <?php endif ?>
         <div class="vrp-row">
             <div class="vrp-col-md-12">
-                <?=vrp_pagination($data->totalpages, $data->page); ?>
+                <?php echo vrp_pagination($data->totalpages, $data->page); ?>
             </div>
         </div>
     </div>

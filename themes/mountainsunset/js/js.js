@@ -68,12 +68,12 @@
 
         });
 
-        $('#vpr-list').click(function(e) {
+        $('#vrp-list').click(function(e) {
             e.preventDefault();
             $('.list-grid-layout').attr('class', 'col-xs-12 list-grid-layout vpr-list-style');
         });
 
-        $('#vpr-grid').click(function(e){
+        $('#vrp-grid').click(function(e){
             e.preventDefault();
             $('.list-grid-layout').attr('class', 'col-md-4 col-xs-6 col-sm-12 vpr-list-grid-layout vpr-grid-style');
         });

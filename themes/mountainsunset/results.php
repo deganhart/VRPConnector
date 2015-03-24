@@ -14,7 +14,7 @@
         <?php else: ?>
         <!-- Total number of results found -->
         <div class="vrp-row">
-            <!--                                vrp-wrapper-presentation-actions-->
+            <!-- vrp-wrapper-presentation-actions-->
             <div class="vrp-col-md-10">
                 <div class="vrp-form-filter-action">
                     <?php vrp_resultsperpage(); ?>
@@ -67,7 +67,6 @@
                         </div>
                     </div>
                     <div class="vrp-thumbnail text-center" style="background-image:url(<?php echo esc_url($unit->Thumb); ?>);">
-
                         <div class="vrp-actions">
                             <a href="#" data-unit="<?php echo $unit->id; ?>" class="vrp-favorite-button vrp-btn purple text-center">
                                 <i class="fa fa-fw fa-lg fa-heart"></i>
@@ -80,7 +79,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="vrp-caption">
                         <div class="vrp-row">
                             <div class="vrp-col-xs-8 vrp-col-sm-7">
@@ -108,7 +106,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         <?php endforeach; ?>

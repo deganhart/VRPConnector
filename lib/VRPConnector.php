@@ -724,7 +724,7 @@ class VRPConnector
     public function call($call, $params = [])
     {
         if (count($params) > 0) {
-            $cache_key = md5($call . implode('_', $params));
+            $cache_key = md5($call . json_encode($params));
         } else {
             $cache_key = md5($call);
         }

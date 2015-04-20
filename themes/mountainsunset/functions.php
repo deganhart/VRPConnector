@@ -11,36 +11,61 @@ class mountainsunset
     function my_scripts_method()
     {
         if (file_exists(get_stylesheet_directory() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.js')) {
-            wp_register_script('VRPjQueryUI', get_stylesheet_directory_uri() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.js');
+            wp_register_script('VRPjQueryUI', get_stylesheet_directory_uri() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.js', array( 'jquery' ) );
         } else {
-            wp_register_script(
-                'VRPjQueryUI',
-                plugins_url('/mountainsunset/css/jquery-ui-1.11.2.custom/jquery-ui.js', dirname(__FILE__)),
-                array('jquery')
-            );
+            wp_register_script( 'VRPjQueryUI', plugins_url('/mountainsunset/css/jquery-ui-1.11.2.custom/jquery-ui.js', dirname(__FILE__)), array('jquery') );
         }
-
         wp_enqueue_script('VRPjQueryUI');
 
-        wp_register_script('vrpNamespace', plugins_url('/mountainsunset/js/vrp.namespace.js', dirname(__FILE__)));
+        if (file_exists(get_stylesheet_directory() . '/vrp/js/vrp.namespace.js')) {
+            wp_register_script('vrpNamespace', get_stylesheet_directory_uri() . '/vrp/js/vrp.namespace.js', array( 'jquery' ) );
+        } else {
+            wp_register_script('vrpNamespace', plugins_url('/mountainsunset/js/vrp.namespace.js', dirname(__FILE__)), array( 'jquery' ) );
+        }
         wp_enqueue_script('vrpNamespace');
-        wp_register_script('vrpMapModule', plugins_url('/mountainsunset/js/vrp.map.js', dirname(__FILE__)));
+
+
+        if (file_exists(get_stylesheet_directory() . '/vrp/js/vrp.map.js')) {
+            wp_register_script('vrpMapModule', get_stylesheet_directory_uri() . '/vrp/js/vrp.map.js', array( 'jquery' ) );
+        } else {
+            wp_register_script('vrpMapModule', plugins_url('/mountainsunset/js/vrp.map.js', dirname(__FILE__)), array( 'jquery' ) );
+        }
         wp_enqueue_script('vrpMapModule');
-        wp_register_script('vrpMRespondModule', plugins_url('/mountainsunset/js/vrp.mRespond.js', dirname(__FILE__)));
+
+
+        if (file_exists(get_stylesheet_directory() . '/vrp/js/vrp.mRespond.js')) {
+            wp_register_script('vrpMRespondModule', get_stylesheet_directory_uri() . '/vrp/js/vrp.mRespond.js', array( 'jquery' ) );
+        } else {
+            wp_register_script('vrpMRespondModule', plugins_url('/mountainsunset/js/vrp.mRespond.js', dirname(__FILE__)), array( 'jquery' ) );
+        }
         wp_enqueue_script('vrpMRespondModule');
-        wp_register_script('vrpUIModule', plugins_url('/mountainsunset/js/vrp.ui.js', dirname(__FILE__)));
+
+
+        if (file_exists(get_stylesheet_directory() . '/vrp/js/vrp.ui.js')) {
+            wp_register_script('vrpUIModule', get_stylesheet_directory_uri() . '/vrp/js/vrp.ui.js', array( 'jquery' ) );
+        } else {
+            wp_register_script('vrpUIModule', plugins_url('/mountainsunset/js/vrp.ui.js', dirname(__FILE__)), array( 'jquery' ) );
+        }
         wp_enqueue_script('vrpUIModule');
-        wp_register_script('vrpQueryStringModule', plugins_url('/mountainsunset/js/vrp.queryString.js', dirname(__FILE__)));
+
+
+        if (file_exists(get_stylesheet_directory() . '/vrp/js/vrp.queryString.js')) {
+            wp_register_script('vrpQueryStringModule', get_stylesheet_directory_uri() . '/vrp/js/vrp.queryString.js', array( 'jquery' ) );
+        } else {
+            wp_register_script('vrpQueryStringModule', plugins_url('/mountainsunset/js/vrp.queryString.js', dirname(__FILE__)), array( 'jquery' ));
+        }
         wp_enqueue_script('vrpQueryStringModule');
+
         wp_register_script('googleMap', 'https://maps.googleapis.com/maps/api/js?v=3.exp');
         wp_enqueue_script('googleMap');
 
-
         if (file_exists(get_stylesheet_directory() . '/vrp/js/js.js')) {
-            wp_enqueue_script('VRPthemeJS', get_stylesheet_directory_uri() . '/vrp/js/js.js');
+            wp_enqueue_script('VRPthemeJS', get_stylesheet_directory_uri() . '/vrp/js/js.js', array( 'jquery' ) );
         } else {
-            wp_enqueue_script('VRPthemeJS', plugins_url('/mountainsunset/js/js.js', dirname(__FILE__)));
+            wp_enqueue_script('VRPthemeJS', plugins_url('/mountainsunset/js/js.js', dirname(__FILE__)), array( 'jquery' ) );
         }
+
+
         global $wp_query;
 
 
@@ -63,8 +88,13 @@ class mountainsunset
     {
 
 
-        wp_enqueue_style('FontAwesome',
-            plugins_url('/mountainsunset/css/font-awesome.css', dirname(__FILE__)));
+
+         if (file_exists(get_stylesheet_directory() . '/vrp/css/font-awesome.css')) {
+            wp_enqueue_style('FontAwesome', get_stylesheet_directory_uri() . '/vrp/css/font-awesome.css');
+        } else {
+            wp_enqueue_style('FontAwesome', plugins_url('/mountainsunset/css/font-awesome.css', dirname(__FILE__)));
+        }
+
 
         if (file_exists(get_stylesheet_directory() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.css')) {
             wp_enqueue_style('VRPjQueryUISmoothness', get_stylesheet_directory_uri() . '/vrp/css/jquery-ui-1.11.2.custom/jquery-ui.css');

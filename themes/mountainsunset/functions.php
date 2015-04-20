@@ -56,8 +56,10 @@ class mountainsunset
         }
         wp_enqueue_script('vrpQueryStringModule');
 
+
         wp_register_script('googleMap', 'https://maps.googleapis.com/maps/api/js?v=3.exp');
         wp_enqueue_script('googleMap');
+
 
         if (file_exists(get_stylesheet_directory() . '/vrp/js/js.js')) {
             wp_enqueue_script('VRPthemeJS', get_stylesheet_directory_uri() . '/vrp/js/js.js', array( 'jquery' ) );
@@ -70,10 +72,10 @@ class mountainsunset
 
 
 
-//		if (isset($wp_query->query_vars['action'])) {
-//			if ('unit' == $wp_query->query_vars['action']){
-//			}
-//		}
+//      if (isset($wp_query->query_vars['action'])) {
+//          if ('unit' == $wp_query->query_vars['action']){
+//          }
+//      }
 
         $script_vars = [
             'site_url' => site_url(),
@@ -465,10 +467,9 @@ function daysTo($from, $to, $round = true)
     return $round == true ? floor($days) : round($days, 2);
 }
 
-function vrpCalendar($r, $totalMonths = 3)
-{
+function vrpCalendar($r, $totalMonths = 3) {
 
-    $datelist = array();
+ $datelist = array();
     $arrivals = array();
     $departs = array();
     foreach ($r as $v) {
@@ -493,31 +494,29 @@ function vrpCalendar($r, $totalMonths = 3)
     $calendar = new \Gueststream\Calendar(date('Y-m-d'));
     $calendar->link_days = 0;
     $calendar->highlighted_dates = $final_date;
-    $calendar->arrival_dates = $arrivals;
-    $calendar->depart_dates = $departs;
-    if (isset($_GET["debug"])) {
-    }
+    $calendar->arrival_dates=$arrivals;
+    $calendar->depart_dates=$departs;
     /*  $nextyear = date("Y", mktime(0, 0, 0, date("m") + 1, date("d"), date("Y")));
       $nextmonth = date("m", mktime(0, 0, 0, date("m") + 1, date("d"), date("Y")));
       $nextyear2 = date("Y", mktime(0, 0, 0, date("m") + 2, date("d"), date("Y")));
       $nextmonth2 = date("m", mktime(0, 0, 0, date("m") + 2, date("d"), date("Y")));
-     *
+     * 
      */
-    $theKey = "<br style=\"clear:both;\" /><br/><div id=\"calKey\"><div style=\"float:left;\"><span style=\"float:left;display:block;width:15px;height:15px;background:#ffffff;border:1px solid #404040;\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Available</span> <span style=\"float:left;display:block;width:15px;height:15px;background:#BDBDBD;margin-left:10px;border:1px solid #404040;\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Unavailable</span><br style=\"clear:both;\" /></div><br style=\"clear:both;\" /></div>";
+    $theKey = "<div class=\"calkey\" style=\"float:left;\"><span style=\"float:left;display:block;width:15px;height:15px;border:1px solid #404040;\" class=\"isavailable\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Available</span> <span style=\"float:left;display:block;width:15px;height:15px;;margin-left:10px;border:1px solid #404040;\" class=\"notavailable highlighted\"> &nbsp;</span> <span style=\"float:left;\">&nbsp; Unavailable</span><span style=\"margin-left:10px;float:left;display:block;width:15px;height:15px;border:1px solid #404040;\" class=\"isavailable dDate\"></span><span style=\"float:left;\">&nbsp; Check-In Only</span><span style=\"margin-left:10px;float:left;display:block;width:15px;height:15px;border:1px solid #404040;\" class=\"isavailable aDate\"></span><span style=\"float:left;\">&nbsp; Check-Out Only</span><br style=\"clear:both;\" /></div><br style=\"clear:both;\" />";
     $ret = "";
     $x = 0;
     $curYear = date('Y');
-    for ($i = 0; $i < $totalMonths; $i ++) {
+    for ($i = 0; $i <= $totalMonths; $i++) {
 
         $nextyear = date("Y", mktime(0, 0, 0, date("m", $today) + $i, date("d", $today), date("Y", $today)));
         $nextmonth = date("m", mktime(0, 0, 0, date("m", $today) + $i, date("d", $today), date("Y", $today)));
 
-        $ret .= $calendar->output_calendar($nextyear, $nextmonth);
+        $ret.=$calendar->output_calendar($nextyear, $nextmonth);
         if ($x == 3) {
-            // $ret.="<br style=\"clear:both;\" /><br style=\"clear:both;\" />";
-            $x = - 1;
+            $ret.="";
+            $x = -1;
         }
-        $x ++;
+        $x++;
     }
 
 

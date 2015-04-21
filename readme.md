@@ -1,10 +1,9 @@
 ### VRPConnector ###
-The Vacation Rental Platform Connector plugin allows you to market and book your vacation rental properties 
-on your WordPress website.
+The Vacation Rental Platform Connector plugin allows you to manage; unit search, unit pages, rates and availability information and online booking for your vacation rental properties on your WordPress website.
 
 ## Description ##
-The Vacation Rental Property Connector plugin by Gueststream, Inc. allows you to sync all of your vacation rental
-properties from a wide variety of property management software to your website allowing potential guests to
+The Vacation Rental Platform Connector plugin by Gueststream, Inc. allows you to sync all of your vacation rental
+properties from a wide variety of property management software systems to your website allowing guests to
 search, sort, compare and book your rental properties right from your website.
 
 ## Installation ##
